@@ -1,5 +1,36 @@
 # React-shop-cloudfront
 
+## Task 3 - Lambda + serverless
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/03_serverless_api/task.md
+
+What has been done:
+  - [x] Code is separated in 2 repositories: frontend (https://github.com/akiavara/nodejs-aws-shop-react) and backend (https://github.com/akiavara/aws-shop-react-backend)
+  - [x] Code of the backend repository in MR (https://github.com/akiavara/aws-shop-react-backend/pull/1/files)
+  - [x] getProductsList lambda function: https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products
+  - [x] getProductsById lambda function: https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products/2
+  - [x] getProductsById error handled if product not found : https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products/2222
+  - [x] Swagger file is in "aws-shop-react-backend" repository "aws-shop-react-backend/product-service/swagger.yaml"
+  - [x] Unit tests in backend repository
+
+Here are screenshots of what I did.
+
+1. Unit tests in backend repo
+
+![Unit tests in backend repo](tasks/task_3/1_tests_lambda_ok.png)
+
+2. Deployment result in backend repo
+
+![Deployment result in backend repo](tasks/task_3/2_deploy_serverless_ok.png)
+
+3. Display in "API Gateway" AWS
+
+![Display in "API Gateway" AWS](tasks/task_3/3_api_gateway_aws.png)
+
+4. Local website display
+
+![Local website display](tasks/task_3/4_website_display.png)
+
 ## Task 2 - Serving SPA
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/02_serving_spa/task.md
