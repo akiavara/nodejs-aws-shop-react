@@ -1,5 +1,42 @@
 # React-shop-cloudfront
 
+## Task 4 - Integration with NoSQL Database
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/04_integration_with_nosql_database/task.md
+
+What has been done:
+  - [x] Code is separated in 2 repositories: frontend (https://github.com/akiavara/nodejs-aws-shop-react) and backend (https://github.com/akiavara/aws-shop-react-backend)
+  - [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/3
+  - [x] URL of API: https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products
+  - [x] URL of frontend application: https://d1ef84ecychojy.cloudfront.net
+  - [x] Task 4.1: You can populate the database automatically ("$ npm run seed", file "scripts/seed-data.ts" in backend repository) - see screenshot below to see the result
+  - [x] Task 4.2.1: Environment variables are sent to Lambda functions, see "tableEnvironment" variable in backend repo file "[product-service/lib/product-service-stack.ts](https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056)"
+  - [x] Tasks 4.2.2 + 4.2.3 + 4.2.4 : See functions ```getProducts``` and ```getProductById``` in "[product-service/src/services/productService.ts](https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-7988b6eea10c32ff6de02f91f668bf3eab787f2e7816b9d87e4ee76d2abcfdcb)" (backend repository) to see product retrieval via database (and models join). I also changed types (for product model and count) ```product-service/src/types/index.ts```
+  - [x] Task 4.3: createProduct Lambda created, url "/products" via POST
+  - [x] Task 4.4: MR done (for frontend and backend repositories) + README update
+  - [x] POST ```/products``` lambda functions returns error 400 status code if product data is invalid -> see Lambda function defined in file ```product-service/src/functions/createProduct/index.ts``` in backend repository
+  - [x] All lambdas return error 500 status code on any error (DB connection, any unhandled error in code) -> see all Lambda functions under ```product-service/src/functions``` folder in backend repository
+  - [x] All lambdas do console.log for each incoming requests and their arguments -> see all Lambda functions under ```product-service/src/functions``` folder in backend repository (there is console.log at the beginning of each)
+  - [x] Transaction based creation of product -> See the transaction in ```product-service/src/functions/createProduct/index.ts``` in backend repository (https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-f48bbb047be10782b85ca9fc481423fef2aca321a5918199a3592f3a87c7199b)
+  - [x] I did it using CDK, not serverless (no penalties)
+  - [x] I also changed the ```product-service/swagger.yaml``` file in order to add the createProduct method (https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-5994bb86a5ca1d57473103bc0729822da6890f02d70fa34e5ae9f451b5962bb4)
+
+Here are screenshots of what I did.
+
+1. Automatic database filling
+
+When we launch:
+```$ npm run seed```
+
+![See command line output](tasks/task_4/4_command_output.png)
+
+2. POST /products
+
+When we POST a new product (bore and after):
+
+![See command line output](tasks/task_4/5_new_product.png)
+
+
 ## Task 3 - Lambda + serverless
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/03_serverless_api/task.md
