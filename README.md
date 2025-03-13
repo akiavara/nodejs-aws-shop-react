@@ -1,5 +1,40 @@
 # React-shop-cloudfront
 
+## Task 5 - Integration with S3
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/05_integration_with_s3/task.md
+
+Code is separated in 2 repositories:
+  - frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+  - backend (https://github.com/akiavara/aws-shop-react-backend)
+
+What has been done:
+  - [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/4
+  - [x] URL of frontend application: https://d1ef84ecychojy.cloudfront.net
+  - [x] Task 5.1: S4 bucket manually created (called "import-service-dev-shop-react") with 2 folders inside ("parsed" and "uploaded"). import-service created in backend repository : https://github.com/akiavara/aws-shop-react-backend/pull/4/files
+  - [x] Task 5.2: See importProductsFile lambda function here: https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-6708ee305f27d7ad5c77f3d37c5ff9c5bf88d5ed9718918092076dc49d1e94ea
+  - [x] Task 5.3: See importFileParser lambda function here: https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137
+  - [x] Task 5.4: This MR and the MR in backend repository prove that it's ok
+  - [x] +10 (All languages) - importProductsFile lambda is covered by unit tests. See unit tests for importProductsFile in backend MR (see also the screenshot below) : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-0f87bcaaf945db6dc5b2e3669f95bc2d26d789231ea6f8eddb350824e8745d37
+  - [x] +10 (All languages) - importFileParser lambda is covered by unit tests. See unit tests for importFileParser in backend MR (see also the screenshot below) : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-be2369e6d4675c74c6c910847cdc696c949f79e27ed73db9a40ddc5f8bf6b1ec
+  - [x] +10 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137R74-R101
+
+
+1. Task 5.1. Creation of the S4 bucket
+![Creation of the S4 bucket](tasks/task_5/1_task_5.1.png)
+
+I have also added CORS config:
+
+![CORS config](tasks/task_5/1_task_5.1_2.png)
+
+2. Task 5.2 and 5.3: make it work with storefront
+
+![Make it work with storefront](tasks/task_5/2_task_5.2_5.3.png)
+
+3. Task 5.3. Logs from importFileParser
+![Logs from importFileParser](tasks/task_5/3_task_5.3.png)
+
+
 ## Task 4 - Integration with NoSQL Database
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/04_integration_with_nosql_database/task.md
