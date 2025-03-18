@@ -1,5 +1,29 @@
 # React-shop-cloudfront
 
+## Task 6 - SQS & SNS
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/06_async_microservices_communication/task.md
+
+Code is separated in 2 repositories:
+  - frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+  - backend (https://github.com/akiavara/aws-shop-react-backend)
+
+What has been done:
+  - [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/5
+  - [x] URL of frontend application: https://d1ef84ecychojy.cloudfront.net
+  - [x] Task 6.1: [Queue SQL catalogItemsQueue created](https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056), this last call new [Lambda function catalogBatchProcess](https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-8293a261821d2dd6b0a6909d658dcb2ae47b0a709c54f2d94976294d4b592da5) with 5 messages at once via batchSize property. Products are then created in database.
+  - [x] Task 6.2: importFileParser send CSV record into SQS (I kept the logging for convenience): see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137
+  - [x] Task 6.3: SNS createProductTopic created (see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056) which send email to my professional email address and catalogBatchProcess call this SNS once products are created (see method sendSnsNotification here: https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-8293a261821d2dd6b0a6909d658dcb2ae47b0a709c54f2d94976294d4b592da5)
+  - [x] +15 (All languages) - catalogBatchProcess lambda is covered by unit tests (see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-b22883024061cd3944f111dc43cfe95377ab5c5663ab40d168dfe92b16a95d6d)
+  - [x] +15 (All languages) - set a Filter Policy for SNS createProductTopic: see sendSnsNotification function and multiple "createProductTopic.addSubscription" here https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056. It's my same professional email but I have added a "+expensive" for example to be sure that it's the correct subscription. See screens below to confirm.
+
+1. Unit tests
+![Unit tests](tasks/task_6/unit_tests.png)
+
+2. Filter policy + SNS
+![Filter policy + SNS](tasks/task_6/sns_topic.png)
+
+
 ## Task 5 - Integration with S3
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/05_integration_with_s3/task.md
