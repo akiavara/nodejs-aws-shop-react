@@ -1,5 +1,38 @@
 # React-shop-cloudfront
 
+## Task 8 - Authorization
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/08_integration_with_sql_database/task.md
+
+Code is separated in 2 repositories:
+
+- frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+- backend (https://github.com/akiavara/aws-shop-react-backend)
+- fork of nodejs-aws-cart-api (https://github.com/akiavara/nodejs-aws-cart-api)
+
+What has been done:
+
+- [x] Code of the backend repository in MR : TODO
+- [x] URL of frontend application: https://d4hva5vucegt5.cloudfront.net
+- [x] Task 8.1: see my fork of nodejs-aws-cart-api here: https://github.com/akiavara/nodejs-aws-cart-api. Public URL: https://45jb31lr7j.execute-api.eu-west-3.amazonaws.com/prod/. Example https://45jb31lr7j.execute-api.eu-west-3.amazonaws.com/prod/products
+- [x] Task 8.2: RDS database created on AWS console (PostgreSQL), see screenshot below. SQL files to create, delete and populate database here: TODO
+- [x] Task 8.3: Nestjs app updated in order to use RDS, frontend app constant updated too in order to use this Nestjs app
+- [x] +20 (All languages) - Create orders table and integrated with it Order model:
+
+I think I have done more than expected in the task 8, if you go to my app (https://d4hva5vucegt5.cloudfront.net) you:
+- won't see the menu if you have no authorization token in your 
+
+1. RDS database
+
+Database in AWS console:
+![Database in AWS console](tasks/task_8/rds_database.png)
+
+SQL that I used to generate tables
+![RDS database](tasks/task_8/rds_table_creation.png)
+
+Visual representation of tables
+![Visual representation of tables](tasks/task_8/rds_table_creation_visual.png)
+
 ## Task 7 - Authorization
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/07_authorization/task.md
