@@ -49,36 +49,40 @@ export default function Header() {
             >
               <AccountCircle />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem
-                component={RouterLink}
-                to="/admin/orders"
-                onClick={handleClose}
+            {localStorage.getItem("authorization_token") ? (
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
               >
-                Manage orders
-              </MenuItem>
-              <MenuItem
-                component={RouterLink}
-                to="/admin/products"
-                onClick={handleClose}
-              >
-                Manage products
-              </MenuItem>
-            </Menu>
+                <MenuItem
+                  component={RouterLink}
+                  to="/admin/orders"
+                  onClick={handleClose}
+                >
+                  Manage orders
+                </MenuItem>
+                <MenuItem
+                  component={RouterLink}
+                  to="/admin/products"
+                  onClick={handleClose}
+                >
+                  Manage products
+                </MenuItem>
+              </Menu>
+            ) : (
+              <></>
+            )}
           </div>
         )}
         <Cart />

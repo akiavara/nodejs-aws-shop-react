@@ -12,7 +12,7 @@ import { OrderStatus, ORDER_STATUS_FLOW } from "~/constants/order";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Field, Form, Formik, FormikProps } from "formik";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import TextField from "~/components/Form/TextField";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -35,7 +35,11 @@ export default function PageOrder() {
     {
       queryKey: ["order", { id }],
       queryFn: async () => {
-        const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
+        const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`, {
+          headers: {
+            Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+          },
+        });
         return res.data;
       },
     },
@@ -70,24 +74,28 @@ export default function PageOrder() {
 
   if (isOrderLoading || isProductsLoading) return <p>loading...</p>;
 
-  const statusHistory = order?.statusHistory || [];
+  if (!order) {
+    return <p>Order not found</p>;
+  }
 
-  const lastStatusItem = statusHistory[statusHistory.length - 1];
+  const orderStatus = order.status as OrderStatus;
 
-  return order ? (
+  //const lastStatusItem = statusHistory[statusHistory.length - 1];
+
+  return (
     <PaperLayout>
       <Typography component="h1" variant="h4" align="center">
         Manage order
       </Typography>
-      <ReviewOrder address={order.address} items={cartItems} />
+      <ReviewOrder address={order.delivery} items={cartItems} />
       <Typography variant="h6">Status:</Typography>
       <Typography variant="h6" color="primary">
-        {lastStatusItem?.status.toUpperCase()}
+        {orderStatus?.toUpperCase()}
       </Typography>
       <Typography variant="h6">Change status:</Typography>
       <Box py={2}>
         <Formik
-          initialValues={{ status: lastStatusItem.status, comment: "" }}
+          initialValues={{ status: orderStatus, comment: "" }}
           enableReinitialize
           onSubmit={(values) =>
             updateOrderStatus(
@@ -99,7 +107,7 @@ export default function PageOrder() {
           {({ values, dirty, isSubmitting }: FormikProps<FormValues>) => (
             <Form autoComplete="off">
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Field
                     component={TextField}
                     name="status"
@@ -119,7 +127,7 @@ export default function PageOrder() {
                     ))}
                   </Field>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Field
                     component={TextField}
                     name="comment"
@@ -129,7 +137,7 @@ export default function PageOrder() {
                     multiline
                   />
                 </Grid>
-                <Grid item container xs={12} justifyContent="space-between">
+                <Grid container size={{ xs: 12 }} justifyContent="space-between">
                   <Button
                     type="submit"
                     variant="contained"
@@ -144,7 +152,7 @@ export default function PageOrder() {
           )}
         </Formik>
       </Box>
-      <Typography variant="h6">Status history:</Typography>
+      {/*<Typography variant="h6">Status history:</Typography>
       <TableContainer>
         <Table aria-label="simple table">
           <TableHead>
@@ -168,7 +176,7 @@ export default function PageOrder() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>*/}
     </PaperLayout>
-  ) : null;
+  );
 }
