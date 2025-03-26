@@ -23,6 +23,12 @@ export default function Header() {
     setAnchorEl(null);
   };
 
+  const logout = () => {
+    localStorage.removeItem("authorization_token");
+    localStorage.removeItem("is_admin");
+    handleClose();
+  }
+
   return (
     <AppBar position="relative">
       <Toolbar>
@@ -72,16 +78,54 @@ export default function Header() {
                 >
                   Manage orders
                 </MenuItem>
+                {localStorage.getItem("is_admin") === "true" && (
+                  <MenuItem
+                    component={RouterLink}
+                    to="/admin/products"
+                    onClick={handleClose}
+                  >
+                    Manage products
+                  </MenuItem>
+                )}
                 <MenuItem
                   component={RouterLink}
-                  to="/admin/products"
-                  onClick={handleClose}
+                  to="/"
+                  onClick={logout}
                 >
-                  Manage products
+                  Logout
                 </MenuItem>
               </Menu>
             ) : (
-              <></>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem
+                  component={RouterLink}
+                  to="/login"
+                  onClick={handleClose}
+                >
+                  Login
+                </MenuItem>
+                <MenuItem
+                  component={RouterLink}
+                  to="/register"
+                  onClick={handleClose}
+                >
+                  Register
+                </MenuItem>
+              </Menu>
             )}
           </div>
         )}
