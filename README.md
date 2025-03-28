@@ -1,5 +1,62 @@
 # React-shop-cloudfront
 
+## Task 8 - Authorization
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/08_integration_with_sql_database/task.md
+
+Code is separated in 3 repositories now (due to the task a 3rd repository has been added):
+- frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+- backend (https://github.com/akiavara/aws-shop-react-backend)
+- fork of nodejs-aws-cart-api (https://github.com/akiavara/nodejs-aws-cart-api)
+
+Pull requests:
+- frontend : this one (https://github.com/akiavara/nodejs-aws-shop-react/pull/8)
+- backend : no PR for this task
+- fork of nodejs-aws-cart-api (https://github.com/akiavara/nodejs-aws-cart-api/pull/1)
+
+What has been done:
+
+- [x] URL of frontend application: https://d4hva5vucegt5.cloudfront.net
+- [x] Task 8.1: You can see my fork of nodejs-aws-cart-api in above links.
+   - Public URL: https://45jb31lr7j.execute-api.eu-west-3.amazonaws.com/prod/
+   - Example https://45jb31lr7j.execute-api.eu-west-3.amazonaws.com/prod/products
+- [x] Task 8.2: RDS database created on AWS console (PostgreSQL), see screenshot below. SQL files:
+   - Create database tables: https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-20398a22ddd48d908944ac4de0ee87018a569418c69f7d83c310e4aec2d3b503
+   - Drop all tables: https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-99bbb763451e41eb09c25a6ab0ffde23053acdb4f77d6e39ba8e2e9d64e51f1b
+   - Fill tables with samples data: https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-d4d112c651c8a3bad60792314472888e1ca299c66ceba721893b03bfbb7068cd
+- [x] Task 8.3: Nestjs app updated in order to use RDS, frontend app constant updated too in order to use this Nestjs app
+- [x] +20 (All languages) - Create orders table and integrated with it Order model:
+   - Order model : https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-cba09e05b4d5ef91e1de8759e1770f67699707b896bc1034ada0f0255264e503
+   - Order items model : https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-8e2602233963e10cbe6df7b8ae2295688d66c92134a3afd43097e0d4ba349ab5
+   - Order service to use these models: https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-5826031ecf74a3db1f74cbca740fb5173eef6200a4de41471fbb9238be772287
+- [x] +4 (All languages) - Create users table and integrate with it
+   - See create.sql file above where table is created
+   - See [auth.service.ts](https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-aea62a4c305374791411369a46e8553d716a032a03bb48136176873887e3311c) for authentication management
+- [x] +3 (All languages) - Transaction based creation of checkout. [See lines 42 to 78 of src/order/services/order.service.ts](https://github.com/akiavara/nodejs-aws-cart-api/pull/1/files#diff-5826031ecf74a3db1f74cbca740fb5173eef6200a4de41471fbb9238be772287R42-R78)
+- [x] +3 (All languages) - Integrate Cart service with FE repository
+- [x] I couldn't understand very well what was expected for this task so I think I had done 100x more than expected but I didn't like to
+have a non-functional website. So if you go to my app (https://d4hva5vucegt5.cloudfront.net) you:
+   - will see a menu "Login / register" if you have no authorization_token in your local storage
+   - if you go to Login you can use credentials seen in the "fill.sql" file, you can use "johndoe" and "TEST_PASSWORD" to be an admin
+   - you can also register if you want
+   - once logged in you can add to cart / see your orders
+   - you can logout
+   - as only "johndoe" can upload a file in order to add products (previous tasks) this account is the only one that can see "Manage products" page
+
+1. RDS database
+
+Database in AWS console:
+![Database in AWS console](tasks/task_8/rds_database.png)
+
+SQL that I used to generate tables
+![RDS database](tasks/task_8/rds_table_creation.png)
+
+Visual representation of tables
+![Visual representation of tables](tasks/task_8/rds_table_creation_visual.png)
+
+2. Whole storefront presentation
+![Whole storefront presentation](tasks/task_8/task-8-storefront.mp4)
+
 ## Task 7 - Authorization
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/07_authorization/task.md
