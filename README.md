@@ -1,51 +1,86 @@
 # React-shop-cloudfront
 
+## Task 7 - Authorization
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/07_authorization/task.md
+
+Code is separated in 2 repositories:
+
+- frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+- backend (https://github.com/akiavara/aws-shop-react-backend)
+
+What has been done:
+
+- [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/6
+- [x] URL of frontend application: https://d4hva5vucegt5.cloudfront.net
+- [x] Task 7.1: [authorization-service created with basicAuthorizer](https://github.com/akiavara/aws-shop-react-backend/pull/6/files#diff-78f5e43aea18a609e4d8ec9337b409feec2fea041e9bf6d71234acf38724c917). This last returns IAM policy if given credentials are correct. ".env" file with "CREDENTIALS=johndoe=TEST_PASSWORD" inside.
+- [x] Task 7.2: Add Lambda authorization to the "/import" path of the Import Service API Gateway and use it at as the Lambda authorizer. See changes in import-service-stack: import-service/lib/import-service-stack.ts
+- [x] Task 7.3: Frontend app calls "/import" with Authorization header based on "authorization_token" local storage item (see https://github.com/akiavara/nodejs-aws-shop-react/pull/7/files#diff-24432b1f8209e7604bd55964d5a41321169ae306bbaa65064d4ed9a03fdd4d2f). To test it you can enter this command in your Chrome / Firefox console: `localStorage.setItem('authorization_token', 'am9obmRvZTpURVNUX1BBU1NXT1JE');`
+- [x] I have also updated [the swagger file that you can find here](https://github.com/akiavara/aws-shop-react-backend/pull/6/files#diff-1b43ab733850c54f485ab1af1ac53a80a04a82d9432fe32d4e99a388ddc6143d), you can use it with the authorization code "Basic am9obmRvZTpURVNUX1BBU1NXT1JE" which is "johndoe:TEST_PASSWORD"
+- [x] +30 pts if client display alerts if unauthorized (see screenshot below)
+
+1. Authorization lambda
+   ![Authorization lambda](tasks/task_7/authorization_lambda.png)
+
+2. Test using swagger
+   First, authenticate in Swagger using "Basic am9obmRvZTpURVNUX1BBU1NXT1JE" (or with wrong credentials to test the unauthorized part)
+   ![Swagger test 1](tasks/task_7/swagger_test_1.png)
+
+Then call the "/import" method
+![Swagger test 2](tasks/task_7/swagger_test_2.png)
+
+3. Alert if unauthorized
+
+![Alert if unauthorized](tasks/task_3/alert_unauthorized.png)
+
 ## Task 6 - SQS & SNS
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/06_async_microservices_communication/task.md
 
 Code is separated in 2 repositories:
-  - frontend (https://github.com/akiavara/nodejs-aws-shop-react)
-  - backend (https://github.com/akiavara/aws-shop-react-backend)
+
+- frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+- backend (https://github.com/akiavara/aws-shop-react-backend)
 
 What has been done:
-  - [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/5
-  - [x] URL of frontend application: https://d1ef84ecychojy.cloudfront.net
-  - [x] Task 6.1: [Queue SQL catalogItemsQueue created](https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056), this last call new [Lambda function catalogBatchProcess](https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-8293a261821d2dd6b0a6909d658dcb2ae47b0a709c54f2d94976294d4b592da5) with 5 messages at once via batchSize property. Products are then created in database.
-  - [x] Task 6.2: importFileParser send CSV record into SQS (I kept the logging for convenience): see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137
-  - [x] Task 6.3: SNS createProductTopic created (see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056) which send email to my professional email address and catalogBatchProcess call this SNS once products are created (see method sendSnsNotification here: https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-8293a261821d2dd6b0a6909d658dcb2ae47b0a709c54f2d94976294d4b592da5)
-  - [x] +15 (All languages) - catalogBatchProcess lambda is covered by unit tests (see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-b22883024061cd3944f111dc43cfe95377ab5c5663ab40d168dfe92b16a95d6d)
-  - [x] +15 (All languages) - set a Filter Policy for SNS createProductTopic: see sendSnsNotification function and multiple "createProductTopic.addSubscription" here https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056. It's my same professional email but I have added a "+expensive" for example to be sure that it's the correct subscription. See screens below to confirm.
+
+- [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/5
+- [x] URL of frontend application: https://d4hva5vucegt5.cloudfront.net
+- [x] Task 6.1: [Queue SQL catalogItemsQueue created](https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056), this last call new [Lambda function catalogBatchProcess](https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-8293a261821d2dd6b0a6909d658dcb2ae47b0a709c54f2d94976294d4b592da5) with 5 messages at once via batchSize property. Products are then created in database.
+- [x] Task 6.2: importFileParser send CSV record into SQS (I kept the logging for convenience): see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137
+- [x] Task 6.3: SNS createProductTopic created (see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056) which send email to my professional email address and catalogBatchProcess call this SNS once products are created (see method sendSnsNotification here: https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-8293a261821d2dd6b0a6909d658dcb2ae47b0a709c54f2d94976294d4b592da5)
+- [x] +15 (All languages) - catalogBatchProcess lambda is covered by unit tests (see https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-b22883024061cd3944f111dc43cfe95377ab5c5663ab40d168dfe92b16a95d6d)
+- [x] +15 (All languages) - set a Filter Policy for SNS createProductTopic: see sendSnsNotification function and multiple "createProductTopic.addSubscription" here https://github.com/akiavara/aws-shop-react-backend/pull/5/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056. It's my same professional email but I have added a "+expensive" for example to be sure that it's the correct subscription. See screens below to confirm.
 
 1. Unit tests
-![Unit tests](tasks/task_6/unit_tests.png)
+   ![Unit tests](tasks/task_6/unit_tests.png)
 
 2. Filter policy + SNS
-![Filter policy + SNS](tasks/task_6/sns_topic.png)
-
+   ![Filter policy + SNS](tasks/task_6/sns_topic.png)
 
 ## Task 5 - Integration with S3
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/05_integration_with_s3/task.md
 
 Code is separated in 2 repositories:
-  - frontend (https://github.com/akiavara/nodejs-aws-shop-react)
-  - backend (https://github.com/akiavara/aws-shop-react-backend)
+
+- frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+- backend (https://github.com/akiavara/aws-shop-react-backend)
 
 What has been done:
-  - [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/4
-  - [x] URL of frontend application: https://d1ef84ecychojy.cloudfront.net
-  - [x] Task 5.1: S4 bucket manually created (called "import-service-dev-shop-react") with 2 folders inside ("parsed" and "uploaded"). import-service created in backend repository : https://github.com/akiavara/aws-shop-react-backend/pull/4/files
-  - [x] Task 5.2: See importProductsFile lambda function here: https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-6708ee305f27d7ad5c77f3d37c5ff9c5bf88d5ed9718918092076dc49d1e94ea
-  - [x] Task 5.3: See importFileParser lambda function here: https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137
-  - [x] Task 5.4: This MR and the MR in backend repository prove that it's ok
-  - [x] +10 (All languages) - importProductsFile lambda is covered by unit tests. See unit tests for importProductsFile in backend MR (see also the screenshot below) : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-0f87bcaaf945db6dc5b2e3669f95bc2d26d789231ea6f8eddb350824e8745d37
-  - [x] +10 (All languages) - importFileParser lambda is covered by unit tests. See unit tests for importFileParser in backend MR (see also the screenshot below) : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-be2369e6d4675c74c6c910847cdc696c949f79e27ed73db9a40ddc5f8bf6b1ec
-  - [x] +10 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137R74-R101
 
+- [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/4
+- [x] URL of frontend application: https://d4hva5vucegt5.cloudfront.net
+- [x] Task 5.1: S4 bucket manually created (called "import-service-dev-shop-react") with 2 folders inside ("parsed" and "uploaded"). import-service created in backend repository : https://github.com/akiavara/aws-shop-react-backend/pull/4/files
+- [x] Task 5.2: See importProductsFile lambda function here: https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-6708ee305f27d7ad5c77f3d37c5ff9c5bf88d5ed9718918092076dc49d1e94ea
+- [x] Task 5.3: See importFileParser lambda function here: https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137
+- [x] Task 5.4: This MR and the MR in backend repository prove that it's ok
+- [x] +10 (All languages) - importProductsFile lambda is covered by unit tests. See unit tests for importProductsFile in backend MR (see also the screenshot below) : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-0f87bcaaf945db6dc5b2e3669f95bc2d26d789231ea6f8eddb350824e8745d37
+- [x] +10 (All languages) - importFileParser lambda is covered by unit tests. See unit tests for importFileParser in backend MR (see also the screenshot below) : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-be2369e6d4675c74c6c910847cdc696c949f79e27ed73db9a40ddc5f8bf6b1ec
+- [x] +10 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder : https://github.com/akiavara/aws-shop-react-backend/pull/4/files#diff-cba809526322ecdd303bc91ee3144b584567ad5eb84937af93e0a6427debe137R74-R101
 
 1. Task 5.1. Creation of the S4 bucket
-![Creation of the S4 bucket](tasks/task_5/1_task_5.1.png)
+   ![Creation of the S4 bucket](tasks/task_5/1_task_5.1.png)
 
 I have also added CORS config:
 
@@ -56,36 +91,36 @@ I have also added CORS config:
 ![Make it work with storefront](tasks/task_5/2_task_5.2_5.3.png)
 
 3. Task 5.3. Logs from importFileParser
-![Logs from importFileParser](tasks/task_5/3_task_5.3.png)
-
+   ![Logs from importFileParser](tasks/task_5/3_task_5.3.png)
 
 ## Task 4 - Integration with NoSQL Database
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/04_integration_with_nosql_database/task.md
 
 What has been done:
-  - [x] Code is separated in 2 repositories: frontend (https://github.com/akiavara/nodejs-aws-shop-react) and backend (https://github.com/akiavara/aws-shop-react-backend)
-  - [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/3
-  - [x] URL of API: https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products
-  - [x] URL of frontend application: https://d1ef84ecychojy.cloudfront.net
-  - [x] Task 4.1: You can populate the database automatically ("$ npm run seed", file "scripts/seed-data.ts" in backend repository) - see screenshot below to see the result
-  - [x] Task 4.2.1: Environment variables are sent to Lambda functions, see "tableEnvironment" variable in backend repo file "[product-service/lib/product-service-stack.ts](https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056)"
-  - [x] Tasks 4.2.2 + 4.2.3 + 4.2.4 : See functions ```getProducts``` and ```getProductById``` in "[product-service/src/services/productService.ts](https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-7988b6eea10c32ff6de02f91f668bf3eab787f2e7816b9d87e4ee76d2abcfdcb)" (backend repository) to see product retrieval via database (and models join). I also changed types (for product model and count) ```product-service/src/types/index.ts```
-  - [x] Task 4.3: createProduct Lambda created, url "/products" via POST
-  - [x] Task 4.4: MR done (for frontend and backend repositories) + README update
-  - [x] POST ```/products``` lambda functions returns error 400 status code if product data is invalid -> see Lambda function defined in file ```product-service/src/functions/createProduct/index.ts``` in backend repository
-  - [x] All lambdas return error 500 status code on any error (DB connection, any unhandled error in code) -> see all Lambda functions under ```product-service/src/functions``` folder in backend repository
-  - [x] All lambdas do console.log for each incoming requests and their arguments -> see all Lambda functions under ```product-service/src/functions``` folder in backend repository (there is console.log at the beginning of each)
-  - [x] Transaction based creation of product -> See the transaction in ```product-service/src/functions/createProduct/index.ts``` in backend repository (https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-f48bbb047be10782b85ca9fc481423fef2aca321a5918199a3592f3a87c7199b)
-  - [x] I did it using CDK, not serverless (no penalties)
-  - [x] I also changed the ```product-service/swagger.yaml``` file in order to add the createProduct method (https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-5994bb86a5ca1d57473103bc0729822da6890f02d70fa34e5ae9f451b5962bb4)
+
+- [x] Code is separated in 2 repositories: frontend (https://github.com/akiavara/nodejs-aws-shop-react) and backend (https://github.com/akiavara/aws-shop-react-backend)
+- [x] Code of the backend repository in MR : https://github.com/akiavara/aws-shop-react-backend/pull/3
+- [x] URL of API: https://88fi19k4tg.execute-api.eu-west-3.amazonaws.com/dev/products
+- [x] URL of frontend application: https://d4hva5vucegt5.cloudfront.net
+- [x] Task 4.1: You can populate the database automatically ("$ npm run seed", file "scripts/seed-data.ts" in backend repository) - see screenshot below to see the result
+- [x] Task 4.2.1: Environment variables are sent to Lambda functions, see "tableEnvironment" variable in backend repo file "[product-service/lib/product-service-stack.ts](https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-6407901d1857623807a761aad4d0db9f8dfefe38b7929a2576422632653f0056)"
+- [x] Tasks 4.2.2 + 4.2.3 + 4.2.4 : See functions `getProducts` and `getProductById` in "[product-service/src/services/productService.ts](https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-7988b6eea10c32ff6de02f91f668bf3eab787f2e7816b9d87e4ee76d2abcfdcb)" (backend repository) to see product retrieval via database (and models join). I also changed types (for product model and count) `product-service/src/types/index.ts`
+- [x] Task 4.3: createProduct Lambda created, url "/products" via POST
+- [x] Task 4.4: MR done (for frontend and backend repositories) + README update
+- [x] POST `/products` lambda functions returns error 400 status code if product data is invalid -> see Lambda function defined in file `product-service/src/functions/createProduct/index.ts` in backend repository
+- [x] All lambdas return error 500 status code on any error (DB connection, any unhandled error in code) -> see all Lambda functions under `product-service/src/functions` folder in backend repository
+- [x] All lambdas do console.log for each incoming requests and their arguments -> see all Lambda functions under `product-service/src/functions` folder in backend repository (there is console.log at the beginning of each)
+- [x] Transaction based creation of product -> See the transaction in `product-service/src/functions/createProduct/index.ts` in backend repository (https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-f48bbb047be10782b85ca9fc481423fef2aca321a5918199a3592f3a87c7199b)
+- [x] I did it using CDK, not serverless (no penalties)
+- [x] I also changed the `product-service/swagger.yaml` file in order to add the createProduct method (https://github.com/akiavara/aws-shop-react-backend/pull/3/files#diff-5994bb86a5ca1d57473103bc0729822da6890f02d70fa34e5ae9f451b5962bb4)
 
 Here are screenshots of what I did.
 
 1. Automatic database filling
 
 When we launch:
-```$ npm run seed```
+`$ npm run seed`
 
 ![See command line output](tasks/task_4/4_command_output.png)
 
@@ -95,19 +130,19 @@ When we POST a new product (bore and after):
 
 ![See command line output](tasks/task_4/5_new_product.png)
 
-
 ## Task 3 - Lambda + serverless
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/03_serverless_api/task.md
 
 What has been done:
-  - [x] Code is separated in 2 repositories: frontend (https://github.com/akiavara/nodejs-aws-shop-react) and backend (https://github.com/akiavara/aws-shop-react-backend)
-  - [x] Code of the backend repository in MR (https://github.com/akiavara/aws-shop-react-backend/pull/1/files)
-  - [x] getProductsList lambda function: https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products
-  - [x] getProductsById lambda function: https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products/2
-  - [x] getProductsById error handled if product not found : https://1tmvuptf84.execute-api.eu-west-3.amazonaws.com/dev/products/2222
-  - [x] Swagger file is in "aws-shop-react-backend" repository "aws-shop-react-backend/product-service/swagger.yaml"
-  - [x] Unit tests in backend repository
+
+- [x] Code is separated in 2 repositories: frontend (https://github.com/akiavara/nodejs-aws-shop-react) and backend (https://github.com/akiavara/aws-shop-react-backend)
+- [x] Code of the backend repository in MR (https://github.com/akiavara/aws-shop-react-backend/pull/1/files)
+- [x] getProductsList lambda function: https://88fi19k4tg.execute-api.eu-west-3.amazonaws.com/dev/products
+- [x] getProductsById lambda function: https://88fi19k4tg.execute-api.eu-west-3.amazonaws.com/dev/products/2
+- [x] getProductsById error handled if product not found : https://88fi19k4tg.execute-api.eu-west-3.amazonaws.com/dev/products/2222
+- [x] Swagger file is in "aws-shop-react-backend" repository "aws-shop-react-backend/product-service/swagger.yaml"
+- [x] Unit tests in backend repository
 
 Here are screenshots of what I did.
 
@@ -132,16 +167,19 @@ Here are screenshots of what I did.
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/02_serving_spa/task.md
 
 What has been done:
-  - [x] Manual Bucket + CloudFront creation: done
-  - [x] Automatic Bucket + CloudFront creation: done
+
+- [x] Manual Bucket + CloudFront creation: done
+- [x] Automatic Bucket + CloudFront creation: done
 
 Manual creation
+
 - Bucket URL (Access Denied): https://nodejs-aws-shop-react-tds.s3.eu-west-3.amazonaws.com/
 - CloudFront URL: https://djy4jsds0nb88.cloudfront.net/
 
 Automatic creation (using CDK)
+
 - Bucket URL (Access Denied, see "infrastructure/lib/infrastructure-stack.ts") : https://webappstack-jsccstaticbucket131261f3-sipylym7kxvi.s3.eu-west-3.amazonaws.com/
-- CloudFront URL: https://d1ef84ecychojy.cloudfront.net
+- CloudFront URL: https://d4hva5vucegt5.cloudfront.net
 
 Here are screenshots of what I did.
 
@@ -160,8 +198,6 @@ Here are screenshots of what I did.
 4. CDK Deploy command line output
 
 ![CDK Deploy command line output](tasks/task_2/4_cdk_deploy.png)
-
-
 
 ## Old README
 
