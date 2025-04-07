@@ -1,5 +1,46 @@
 # React-shop-cloudfront
 
+## Task 9 - Docker and AWS Elastic Beanstalk
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/09_containerization/task.md
+
+Code is separated in 3 repositories now (due to the task a 3rd repository has been added):
+- frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+- backend (https://github.com/akiavara/aws-shop-react-backend)
+- fork of nodejs-aws-cart-api (https://github.com/akiavara/nodejs-aws-cart-api)
+
+Pull requests:
+- frontend : this one (https://github.com/akiavara/nodejs-aws-shop-react/pull/9)
+- backend : no PR for this task
+- fork of nodejs-aws-cart-api (https://github.com/akiavara/nodejs-aws-cart-api/pull/2)
+
+What has been done:
+
+- [x] URL of frontend application: https://d4hva5vucegt5.cloudfront.net
+- [x] Task 9.1:
+   - I have created and published my docker image in Docker Hub. You can find it here (https://hub.docker.com/repository/docker/akiavara/cart-api). This image is optimize and have a size < 150 MB (see screenshot below).
+   - In the .dockerignore file some big folders are excluded ("node_modules" and "cdk.out" are the biggest ones, they are used for development but my app is compiled using webpack so it doens't need it)
+- [x] Task 9.2:
+   - Elastic Beanstalk app created (see screeshots below), this last uses the Dockerfile and here is the final URL: http://akiavara-cart-api-prod.eba-pfajgpsk.eu-west-3.elasticbeanstalk.com
+   - Frontend app updated (apiPaths file)
+- [x] +15 - Environment is created and the app is deployed to the AWS cloud. You must provide a link to your GitHub repo with Cart Service API or PR with created Dockerfile and related configurations.
+- [x] +15 - FE application is updated with Cart API endpoint. You must provide a PR with updates in your FE repository and OPTIONALLY link to deployed front-end app which makes proper API calls to your Cart Service.
+
+1. Docker image size
+
+![Docker image size](tasks/task_9/docker_image_size.png)
+
+2. Elastic Beanstalk app
+
+Application:
+
+![EB Application](tasks/task_9/eb_app_1.png)
+
+Details:
+
+![EB Application Details](tasks/task_9/eb_app_2.png)
+
+
 ## Task 8 - Authorization
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/08_integration_with_sql_database/task.md
