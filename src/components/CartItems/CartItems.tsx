@@ -5,15 +5,18 @@ import ListItemText from "@mui/material/ListItemText";
 import { CartItem } from "~/models/CartItem";
 import { formatAsPrice } from "~/utils/utils";
 import AddProductToCart from "~/components/AddProductToCart/AddProductToCart";
+import { OrderItem } from "~/models/Order";
 
 type CartItemsProps = {
-  items: CartItem[];
+  items?: OrderItem[] | CartItem[];
   isEditable: boolean;
 };
 
 export default function CartItems({ items, isEditable }: CartItemsProps) {
-  const totalPrice: number = items.reduce(
-    (total, item) => item.count * item.product.price + total,
+  if (!items) return <></>;
+
+  const totalPrice: number = (items as Array<OrderItem | CartItem>).reduce(
+    (total: number, item: OrderItem | CartItem) => item.count * item.product.price + total,
     0
   );
 

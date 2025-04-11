@@ -1,12 +1,13 @@
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import CartItems from "~/components/CartItems/CartItems";
 import { FormikValues } from "formik";
+import { OrderItem } from "~/models/Order";
 import { CartItem } from "~/models/CartItem";
 
 type ReviewOrderProps = {
   address: FormikValues;
-  items: CartItem[];
+  items?: OrderItem[] | CartItem[];
 };
 
 export default function ReviewOrder({ address, items }: ReviewOrderProps) {
@@ -17,7 +18,7 @@ export default function ReviewOrder({ address, items }: ReviewOrderProps) {
       </Typography>
       <CartItems items={items} isEditable={false} />
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm:6 }}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
@@ -26,7 +27,7 @@ export default function ReviewOrder({ address, items }: ReviewOrderProps) {
           </Typography>
           <Typography gutterBottom>{address.address}</Typography>
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm:6 }} container direction="column">
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Comment
           </Typography>
