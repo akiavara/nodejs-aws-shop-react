@@ -31,7 +31,7 @@ export default function PageRegister() {
 
     setError(null);
 
-    axios.post(`${API_PATHS.login}/api/auth/register`, credentials).then((res) => {
+    axios.post(`${API_PATHS.bff}/api/auth/register`, credentials).then((res) => {
       showAlert("You are now registered, you can login", "success");
       navigate("/login");
 

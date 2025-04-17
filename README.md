@@ -1,5 +1,57 @@
 # React-shop-cloudfront
 
+## Task 10 - Backend For Frontend
+
+URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/10_backend_for_frontend/task.md
+
+Code is separated in 3 repositories now:
+- frontend (https://github.com/akiavara/nodejs-aws-shop-react)
+- backend (https://github.com/akiavara/aws-shop-react-backend)
+- fork of nodejs-aws-cart-api (https://github.com/akiavara/nodejs-aws-cart-api)
+
+Pull requests:
+- frontend : this one (https://github.com/akiavara/nodejs-aws-shop-react/pull/10)
+- backend : https://github.com/akiavara/aws-shop-react-backend/pull/7
+- fork of nodejs-aws-cart-api : no PR for this task
+
+Tests:
+- URL of frontend application where you can test: https://d4hva5vucegt5.cloudfront.net
+- If you check my frontend app API calls (using chrome devtools) you will see that every queries goes to "https://d2xanes5oeu9gx.cloudfront.net" (my bff URL)
+- To use my frontend app (if you don't have a local storage item for authentication) click on the login icon, click "Login", enter "johndoe" as username, "TEST_PASSWORD" as password and login
+- Now that you are logged in you will be able to
+   - add to cart
+   - create product / upload a file to create multiple products
+   - place an order
+   - see your orders
+   - logout
+- You can also login using username "User 2" and password "TEST_PASSWORD". This user is not an admin so you can't see the product creation
+- You can also register if you want (be careful I don't hash passwords in the DB so don't use real password)
+
+What has been done:
+- [x] Task 10.1:
+   - Create a new service called bff-service (see backend pull request, URL of dockerfile in this PR: )
+   - EB app that listens for all requests and redirects those requests to the appropriate services based on variables provided by the .env file (see file "bff-service-stack" that create the EB and send env variables: https://github.com/akiavara/aws-shop-react-backend/pull/7/files#diff-23880ac77782a4fba7d3e1ec4fa7c0b00f647b4a6aad96684f61da9942527cbc)
+   - If BFF Service cannot find recipientURL by the {recipient-service-name}, return a "Cannot process request" error message with status 502. See the content of my BFF which is the file "bff-service/src/index.ts" (https://github.com/akiavara/aws-shop-react-backend/pull/7/files#diff-3789daa082ef28ec04d27e3969066f012320e6be43b41c453202144edfdc1844) line 42 and also line 142
+   - BFF Service should return the same status code and error message that the recipient service returns to the BFF Service in case of any error on the recipient service side. Same here, see the content of my BFF which is the file "bff-service/src/index.ts" (https://github.com/akiavara/aws-shop-react-backend/pull/7/files#diff-3789daa082ef28ec04d27e3969066f012320e6be43b41c453202144edfdc1844) from line 113 (with the JS comment "// Forward the request" and then "// Forward the response")
+- [x] Task 10.2: Deploy BFF Service with Elastic Beanstalk (see screenshot below)
+- [x] Task 10.3: This PR
+- [X] optional - Add a cache at the BFF Service level for a request to the getProductsList lambda function of the Product Service. The cache should expire in 2 minutes.
+   - I have added a in-memory cache, you can see the code in the BFF code (still here https://github.com/akiavara/aws-shop-react-backend/pull/7/files#diff-3789daa082ef28ec04d27e3969066f012320e6be43b41c453202144edfdc1844)
+   - In this file check for "Cache object to store responses" comment -> array initialization
+   - See "// Check if the request is for products and handle caching" comment to see where I handle caching (if cache not expired I return the cache content, else I query the backend service and cache the response before returning the answer)
+   - Sorry the BFF code for this part is not clean I could refactor it (I use the same code for request forwarding in cache "if" bloc and also for other services) but it's working fine for this task :)
+
+By the way you can also find my 2 docker images that I host in docker hub (for BFF and Cart API) here: https://hub.docker.com/search?q=akiavara, I will remove them once the training ends.
+
+1. BFF EB Env
+
+![BFF EB Env](tasks/task_10/bff_eb_env.png)
+
+2. Cloudfront distributions
+
+![Cloudfront distributions](tasks/task_10/cloudfront_distributions.png)
+
+
 ## Task 9 - Docker and AWS Elastic Beanstalk
 
 URL of instructions: https://github.com/rolling-scopes-school/aws/blob/main/aws-developer/09_containerization/task.md
