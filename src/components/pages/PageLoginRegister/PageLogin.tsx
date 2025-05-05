@@ -28,7 +28,7 @@ export default function PageLogin() {
   const submitForm = () => {
     setError(null);
 
-    axios.post(`${API_PATHS.login}/api/auth/login`, credentials).then((res) => {
+    axios.post(`${API_PATHS.bff}/api/auth/login`, credentials).then((res) => {
       const authorization_token = localStorage.getItem("authorization_token");
       if (authorization_token) {
         localStorage.removeItem("authorization_token");
